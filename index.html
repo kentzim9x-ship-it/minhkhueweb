@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MINH KHUÊ Co., Ltd. — Cung Ứng & Xuất Khẩu Hoa Quả Chuẩn Quốc Tế</title>
+    <link rel="icon" type="image/png" href="assets/icon_web.png" />
+    <link rel="apple-touch-icon" href="assets/icon_web.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+
+    <!-- ================= PERSISTENT FLOATING CHROME ================= -->
+    <button class="float-menu-btn" id="menuToggleBtn" aria-label="Mở menu điều hướng">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+            stroke-linecap="round">
+            <line x1="4" y1="7" x2="20" y2="7"></line>
+            <line x1="4" y1="12" x2="20" y2="12"></line>
+            <line x1="4" y1="17" x2="15" y2="17"></line>
+        </svg>
+    </button>
+
+    <nav class="left-dock" aria-label="Điều hướng nhanh">
+        <a href="#hero" class="dock-item active" data-section="hero" data-tooltip="Trang chủ">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            </svg>
+        </a>
+        <a href="#products" class="dock-item" data-section="products" data-tooltip="Danh mục hoa quả">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="13" r="8"></circle>
+                <path d="M12 5c0-2 1.5-3 3-3"></path>
+                <path d="M12 5c-1-1.5-3-1.5-4 0"></path>
+            </svg>
+        </a>
+        <a href="#about" class="dock-item" data-section="about" data-tooltip="Về Chúng Tôi">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                <path d="M2 17l10 5 10-5"></path>
+                <path d="M2 12l10 5 10-5"></path>
+            </svg>
+        </a>
+        <a href="#partners" class="dock-item" data-section="partners" data-tooltip="Đối tác & Khách hàng">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+        </a>
+        <a href="#supply-flow" class="dock-item" data-section="supply-flow" data-tooltip="Quy trình cung ứng">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="1" y="3" width="15" height="13"></rect>
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                <circle cx="18.5" cy="18.5" r="2.5"></circle>
+            </svg>
+        </a>
+    </nav>
+
+    <a href="#hero" class="float-brand-mark">
+        <span class="brand-main">Minh</span>
+        <span class="brand-sub">Khuê.</span>
+    </a>
+
+    <div class="float-bottom-bar">
+        <span class="bar-label">Đặt lịch tư vấn nguồn hàng</span>
+        <button class="bar-cta-pill" onclick="openQuoteModal('Đặt lịch tư vấn 1:1')">
+            <span>LIÊN HỆ NGAY</span>
+            <span class="pill-arrow">→</span>
+        </button>
+    </div>
+
+    <!-- Góc dưới bên phải: Nút liên hệ Zalo -->
+    <div class="float-quick-actions" aria-label="Tiện ích nhanh">
+        <a href="https://zalo.me/0912345678" target="_blank" rel="noopener noreferrer" class="quick-action-btn zalo-btn"
+            title="Chat Zalo tư vấn nguồn hàng sỉ" aria-label="Liên hệ qua Zalo">
+            <span class="zalo-badge-icon">Zalo</span>
+        </a>
+    </div>
+
+    <!-- Nút cuộn lên đầu trang cố định ở giữa (ẩn/hiện tự động khi cuộn) -->
+    <button type="button" class="floating-scroll-top" id="scrollTopBtn" title="Cuộn lên đầu trang"
+        aria-label="Cuộn lên đầu trang">
+        <span class="scroll-cue-pill scroll-top-pill" aria-hidden="true">
+            <span class="scroll-cue-glint scroll-top-glint"></span>
+            <svg class="scroll-cue-arrow scroll-top-arrow" width="14" height="18" viewBox="0 0 14 18" fill="none"
+                stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="7" y2="3"></line>
+                <polyline points="2.5 7 7 2.5 11.5 7"></polyline>
+            </svg>
+        </span>
+    </button>
+
+    <!-- ================= FULLSCREEN OVERLAY MENU ================= -->
+    <div class="menu-overlay" id="menuOverlay">
+        <div class="menu-overlay-inner">
+            <div class="menu-top">
+                <span class="menu-tag">MINH KHUE CO., LTD.</span>
+                <button class="menu-close-btn" id="menuCloseBtn">ĐÓNG ✕</button>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-links">
+                    <a href="#hero" class="menu-link-item" onclick="closeMenu()"><span>01</span> Trang chủ</a>
+                    <a href="#products" class="menu-link-item" onclick="closeMenu()"><span>02</span> Danh mục nông
+                        sản</a>
+                    <a href="#about" class="menu-link-item" onclick="closeMenu()"><span>03</span> Năng lực & Vùng
+                        trồng</a>
+                    <a href="#partners" class="menu-link-item" onclick="closeMenu()"><span>04</span> Đối tác tiêu
+                        biểu</a>
+                    <a href="#supply-flow" class="menu-link-item" onclick="closeMenu()"><span>05</span> Chuỗi lạnh &
+                        Logistics</a>
+                </div>
+                <div class="menu-contact-box">
+                    <p class="menu-box-title">KHO ĐIỀU PHỐI NGUỒN HÀNG</p>
+                    <p>Số 9, Ngách 35A/2, Đường Yên Thái, Xã Sơn Đồng, TP. Hà Nội</p>
+                    <div class="menu-hotline">
+                        <span>Hotline B2B: <strong>0936353137</strong></span>
+                        <span>Email: <strong>nhambc@gmail.com</strong></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= SECTION 1: HERO (THANH LỊCH, FULL KHUNG HÌNH 100VH) ================= -->
+    <header class="hero-section" id="hero">
+        <!-- Khung viền mảnh & quầng sáng tạo chiều sâu sang trọng -->
+        <div class="hero-luxury-frame" aria-hidden="true"></div>
+        <div class="hero-soft-glow" aria-hidden="true"></div>
+
+        <div class="container hero-container">
+            <div class="hero-eyebrow reveal-item" style="--delay: 0ms;">
+                <span class="badge-pill">
+                    <span class="badge-dot"></span>
+                    NÔNG SẢN SẠCH • CHUẨN VIETGAP &amp; GLOBALGAP
+                </span>
+            </div>
+
+            <h1 class="hero-title reveal-item" style="--delay: 90ms;">
+                Nguồn hoa quả tươi.<br />
+                <span class="accent-serif">Cung ứng chuẩn mực.</span>
+            </h1>
+
+            <div class="hero-divider reveal-item" style="--delay: 150ms;" aria-hidden="true"></div>
+
+            <p class="hero-desc reveal-item" style="--delay: 210ms;">
+                Kết nối trực tiếp từ nông trại đạt chuẩn tới hệ thống siêu thị, chuỗi F&amp;B và đối tác doanh nghiệp —
+                tươi ngon mỗi ngày, minh bạch nguồn gốc, giao hàng đúng hẹn.
+            </p>
+
+
+        </div>
+
+        <!-- Chỉ dẫn cuộn phong cách Editorial Luxury thanh mảnh -->
+        <a href="#products" class="hero-scroll-cue reveal-item" style="--delay: 380ms;">
+            <span class="scroll-cue-text">Cuộn xuống để khám phá</span>
+            <span class="scroll-cue-pill" aria-hidden="true">
+                <span class="scroll-cue-glint"></span>
+                <svg class="scroll-cue-arrow" width="14" height="18" viewBox="0 0 14 18" fill="none"
+                    stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="7" y1="1" x2="7" y2="15"></line>
+                    <polyline points="2.5 11 7 15.5 11.5 11"></polyline>
+                </svg>
+            </span>
+        </a>
+    </header>
+
+    <!-- ================= SECTION 2: PINNED DECK PRODUCT CARDS (HIỆU ỨNG NHƯ VIDEO) ================= -->
+    <section class="products-section" id="products">
+        <!-- Lớp ký tự dinh dưỡng & chỉ số nông sản trang trí chìm hai bên -->
+        <div class="products-watermark-chars" aria-hidden="true">
+            <span class="wm-char" style="top: 3%; left: 3%; font-size: 92px; transform: rotate(-12deg);">Vit C</span>
+            <span class="wm-char" style="top: 12%; left: 19%; font-size: 46px; transform: rotate(14deg);">A</span>
+            <span class="wm-char" style="top: 28%; left: 6%; font-size: 58px; transform: rotate(-8deg);">Brix</span>
+            <span class="wm-char" style="top: 48%; left: 2%; font-size: 105px; transform: rotate(10deg);">Zn</span>
+            <span class="wm-char" style="top: 72%; left: 5%; font-size: 86px; transform: rotate(-15deg);">Mg</span>
+
+            <span class="wm-char" style="top: 5%; right: 16%; font-size: 54px; transform: rotate(12deg);">K</span>
+            <span class="wm-char" style="top: 18%; right: 4%; font-size: 96px; transform: rotate(-10deg);">Ca</span>
+            <span class="wm-char" style="top: 36%; right: 12%; font-size: 48px; transform: rotate(-6deg);">Fe</span>
+            <span class="wm-char" style="top: 56%; right: 2%; font-size: 110px; transform: rotate(8deg);">B6</span>
+            <span class="wm-char" style="top: 78%; right: 6%; font-size: 88px; transform: rotate(-12deg);">Na</span>
+        </div>
+
+        <div class="container">
+            <div class="section-header-center" style="margin-bottom: 24px;">
+                <span class="section-kicker">DANH MỤC MẶT HÀNG CHỦ LỰC</span>
+                <h2 class="section-heading" style="font-size: clamp(26px, 3.4vw, 42px);">
+                    Những gì chúng tôi cung ứng.<br />
+                    <span>Tươi ngon từ gốc tới kệ hàng.</span>
+                </h2>
+            </div>
+        </div>
+
+        <!-- Đường ray cuộn & khung ghim cố định giữa màn hình -->
+        <div class="products-deck-track" id="productsDeckTrack">
+            <div class="products-deck-sticky">
+                <div class="stack-wrapper" id="stackWrapper">
+
+                    <!-- CARD 01: ROYAL INDIGO -->
+                    <article class="stack-card" data-index="0"
+                        style="--card-bg: #2619C8; --card-text: #FFFFFF; --card-sub: rgba(255,255,255,0.82);">
+                        <div class="stack-card-inner">
+                            <div class="card-top-row">
+                                <h3 class="card-headline">Trái cây nhiệt đới<br />đặc sản Việt Nam.</h3>
+                                <span class="card-index">(01)</span>
+                            </div>
+
+                            <div class="card-bottom-grid">
+                                <div class="card-info-col">
+                                    <p class="card-copy">
+                                        Thu hoạch đúng độ chín sinh lý tại các vùng chuyên canh Tiền Giang, Bến Tre, Đắk
+                                        Lắk.
+                                        Kiểm định dư lượng thuốc BVTV bằng máy quang phổ trước khi đóng thùng xuất kho.
+                                    </p>
+                                    <div class="card-specs">
+                                        <span>• Sầu riêng Ri6 & Monthong</span>
+                                        <span>• Xoài Cát Hòa Lộc chuẩn size</span>
+                                        <span>• Thanh long ruột đỏ & Bưởi da xanh</span>
+                                    </div>
+                                    <div class="card-footer-meta">
+                                        <div class="farm-badge">
+                                            <div class="farm-avatar">ĐB</div>
+                                            <div>
+                                                <strong>Vùng trồng ĐBSCL & Tây Nguyên</strong>
+                                                <span>Chứng nhận VietGAP & Mã số vùng trồng</span>
+                                            </div>
+                                        </div>
+                                        <button class="card-pill-btn" onclick="openProductDetail(0)">
+                                            <span>XEM BẢNG QUY CÁCH</span>
+                                            <span class="btn-arrow">→</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="card-visual-grid">
+                                    <div class="fruit-tile tile-lime">
+                                        <span class="tile-tag">Brix 18–22°</span>
+                                        <img src="https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=500&q=80"
+                                            alt="Xoài Cát Hòa Lộc" />
+                                        <div class="tile-caption">Xoài Cát Hòa Lộc</div>
+                                    </div>
+                                    <div class="fruit-tile tile-gold">
+                                        <span class="tile-tag">Cơm vàng hạt lép</span>
+                                        <img src="https://images.unsplash.com/photo-1589217157232-464b505b197f?auto=format&fit=crop&w=500&q=80"
+                                            alt="Sầu riêng Ri6" />
+                                        <div class="tile-caption">Sầu Riêng Ri6 Tuyển</div>
+                                    </div>
+                                    <div class="fruit-tile tile-amber">
+                                        <span class="tile-tag">Xuất khẩu EU/JP</span>
+                                        <img src="https://images.unsplash.com/photo-1527325678964-54921661f888?auto=format&fit=crop&w=500&q=80"
+                                            alt="Thanh long ruột đỏ" />
+                                        <div class="tile-caption">Thanh Long Ruột Đỏ</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- CARD 02: VIBRANT TANGERINE -->
+                    <article class="stack-card" data-index="1"
+                        style="--card-bg: #FF5500; --card-text: #FFFFFF; --card-sub: rgba(255,255,255,0.86);">
+                        <div class="stack-card-inner">
+                            <div class="card-top-row">
+                                <h3 class="card-headline">Trái cây ôn đới &<br />nông sản cao nguyên.</h3>
+                                <span class="card-index">(02)</span>
+                            </div>
+
+                            <div class="card-bottom-grid">
+                                <div class="card-info-col">
+                                    <p class="card-copy">
+                                        Canh tác nhà kính công nghệ cao tại Đà Lạt, Lạc Dương và Mộc Châu ở độ cao
+                                        1.500m. Bảo
+                                        quản mát liên tục 4°C–8°C giữ nguyên độ giòn, hương thơm tự nhiên tới tay người
+                                        tiêu
+                                        dùng.
+                                    </p>
+                                    <div class="card-specs">
+                                        <span>• Dâu tây giống Nhật & Hàn Quốc</span>
+                                        <span>• Bơ sáp 034 & Bơ Hass xuất khẩu</span>
+                                        <span>• Hồng giòn Đà Lạt & Chanh dây tím</span>
+                                    </div>
+                                    <div class="card-footer-meta">
+                                        <div class="farm-badge">
+                                            <div class="farm-avatar">ĐL</div>
+                                            <div>
+                                                <strong>Nông trại Cao nguyên Lâm Đồng</strong>
+                                                <span>Chuỗi lạnh khép kín 4°C từ vườn</span>
+                                            </div>
+                                        </div>
+                                        <button class="card-pill-btn" onclick="openProductDetail(1)">
+                                            <span>XEM BẢNG QUY CÁCH</span>
+                                            <span class="btn-arrow">→</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="card-visual-grid">
+                                    <div class="fruit-tile tile-cream">
+                                        <span class="tile-tag">Size 18–22 trái/hộp</span>
+                                        <img src="https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=500&q=80"
+                                            alt="Dâu tây Đà Lạt" />
+                                        <div class="tile-caption">Dâu Tây Đà Lạt VIP</div>
+                                    </div>
+                                    <div class="fruit-tile tile-mint">
+                                        <span class="tile-tag">Dẻo béo 28% dầu</span>
+                                        <img src="https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?auto=format&fit=crop&w=500&q=80"
+                                            alt="Bơ 034 Lâm Đồng" />
+                                        <div class="tile-caption">Bơ Sáp 034 Tuyển</div>
+                                    </div>
+                                    <div class="fruit-tile tile-peach">
+                                        <span class="tile-tag">Hương thơm đậm</span>
+                                        <img src="https://images.unsplash.com/photo-1604495772376-9657f0035eb5?auto=format&fit=crop&w=500&q=80"
+                                            alt="Chanh dây tím" />
+                                        <div class="tile-caption">Chanh Dây Tím Âu</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- CARD 03: CRIMSON CORAL -->
+                    <article class="stack-card" data-index="2"
+                        style="--card-bg: #F32727; --card-text: #FFFFFF; --card-sub: rgba(255,255,255,0.86);">
+                        <div class="stack-card-inner">
+                            <div class="card-top-row">
+                                <h3 class="card-headline">Trái cây nhập khẩu<br />chính ngạch toàn cầu.</h3>
+                                <span class="card-index">(03)</span>
+                            </div>
+
+                            <div class="card-bottom-grid">
+                                <div class="card-info-col">
+                                    <p class="card-copy">
+                                        Nhập khẩu trực tiếp đường hàng không và container lạnh từ Mỹ, Úc, New Zealand,
+                                        Chile và
+                                        Hàn Quốc. Đầy đủ CO, CQ, kiểm dịch thực vật và hóa đơn VAT cho kênh siêu thị &
+                                        đại lý.
+                                    </p>
+                                    <div class="card-specs">
+                                        <span>• Cherry đỏ Mỹ / Úc / Chile size 28–32mm</span>
+                                        <span>• Nho mẫu đơn Hàn Quốc & Nho đen không hạt</span>
+                                        <span>• Táo Envy New Zealand & Kiwi vàng Zespri</span>
+                                    </div>
+                                    <div class="card-footer-meta">
+                                        <div class="farm-badge">
+                                            <div class="farm-avatar">NK</div>
+                                            <div>
+                                                <strong>Đối tác vườn quốc tế trực tiếp</strong>
+                                                <span>Đầy đủ giấy tờ CO/CQ & Kiểm dịch</span>
+                                            </div>
+                                        </div>
+                                        <button class="card-pill-btn" onclick="openProductDetail(2)">
+                                            <span>XEM BẢNG QUY CÁCH</span>
+                                            <span class="btn-arrow">→</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="card-visual-grid">
+                                    <div class="fruit-tile tile-dark">
+                                        <span class="tile-tag">Air Freight 48h</span>
+                                        <img src="https://images.unsplash.com/photo-1528821128474-27f963b062bf?auto=format&fit=crop&w=500&q=80"
+                                            alt="Cherry nhập khẩu" />
+                                        <div class="tile-caption">Cherry Đỏ Size 30+</div>
+                                    </div>
+                                    <div class="fruit-tile tile-cream">
+                                        <span class="tile-tag">Giòn ngọt tự nhiên</span>
+                                        <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=500&q=80"
+                                            alt="Táo Envy New Zealand" />
+                                        <div class="tile-caption">Táo Envy NZ</div>
+                                    </div>
+                                    <div class="fruit-tile tile-lime">
+                                        <span class="tile-tag">Thùng 5kg chuẩn</span>
+                                        <img src="https://images.unsplash.com/photo-1537640538966-79f369143f8f?auto=format&fit=crop&w=500&q=80"
+                                            alt="Nho xanh không hạt" />
+                                        <div class="tile-caption">Nho Mẫu Đơn & Xanh</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- CARD 04: EARTH ESPRESSO -->
+                    <article class="stack-card" data-index="3"
+                        style="--card-bg: #583F26; --card-text: #FFFFFF; --card-sub: rgba(255,255,255,0.85);">
+                        <div class="stack-card-inner">
+                            <div class="card-top-row">
+                                <h3 class="card-headline">Giải pháp cung ứng B2B &<br />quà tặng doanh nghiệp.</h3>
+                                <span class="card-index">(04)</span>
+                            </div>
+
+                            <div class="card-bottom-grid">
+                                <div class="card-info-col">
+                                    <p class="card-copy">
+                                        Thiết kế gói cung ứng định kỳ hàng tuần cho văn phòng, chuỗi nhà hàng — khách
+                                        sạn, bếp
+                                        ăn công nghiệp và dịch vụ giỏ quà trái cây cao cấp in logo riêng theo mùa lễ
+                                        Tết.
+                                    </p>
+                                    <div class="card-specs">
+                                        <span>• Giao hàng định kỳ 6h00 sáng mỗi ngày</span>
+                                        <span>• Đóng gói khay / giỏ quà OEM theo thương hiệu</span>
+                                        <span>• Công nợ linh hoạt 15–30 ngày cho đối tác B2B</span>
+                                    </div>
+                                    <div class="card-footer-meta">
+                                        <div class="farm-badge">
+                                            <div class="farm-avatar">B2B</div>
+                                            <div>
+                                                <strong>Phòng Khách Hàng Doanh Nghiệp</strong>
+                                                <span>Hợp đồng nguyên tắc & Xuất hóa đơn VAT</span>
+                                            </div>
+                                        </div>
+                                        <button class="card-pill-btn" onclick="openProductDetail(3)">
+                                            <span>XEM GÓI DỊCH VỤ B2B</span>
+                                            <span class="btn-arrow">→</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="card-visual-grid">
+                                    <div class="fruit-tile tile-gold">
+                                        <span class="tile-tag">OEM Thương hiệu</span>
+                                        <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=500&q=80"
+                                            alt="Giỏ quà trái cây doanh nghiệp" />
+                                        <div class="tile-caption">Giỏ Quà Doanh Nghiệp</div>
+                                    </div>
+                                    <div class="fruit-tile tile-cream">
+                                        <span class="tile-tag">Chuỗi F&B / Hotel</span>
+                                        <img src="https://images.unsplash.com/photo-1519996529931-28324d5a630e?auto=format&fit=crop&w=500&q=80"
+                                            alt="Nguyên liệu pha chế F&B" />
+                                        <div class="tile-caption">Nguồn Nguyên Liệu F&B</div>
+                                    </div>
+                                    <div class="fruit-tile tile-mint">
+                                        <span class="tile-tag">Pantry Văn phòng</span>
+                                        <img src="https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=500&q=80"
+                                            alt="Trái cây văn phòng" />
+                                        <div class="tile-caption">Trái Cây Pantry Tuần</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 3: ABOUT COMPANY (SCROLL REVEAL) ================= -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-left">
+                    <span class="section-kicker reveal-item" style="--delay: 0ms;">VỀ MINH KHUÊ</span>
+                    <h2 class="about-title reveal-item" style="--delay: 90ms;">
+                        Kiến tạo chuỗi cung ứng nông sản sạch, minh bạch từ nông trại tới bàn ăn.
+                    </h2>
+                    <p class="about-lead reveal-item" style="--delay: 180ms;">
+                        Thành lập từ năm 2018, <strong>Công ty TNHH Thương Mại Hoa Quả Minh Khuê</strong> giải quyết
+                        bài toán đứt gãy chất lượng và biến động giá trong ngành trái cây thương mại bằng mô hình hợp
+                        tác xã liên kết trực tiếp kết hợp hệ thống kho lạnh phân loại tự động.
+                    </p>
+                    <p class="about-body reveal-item" style="--delay: 260ms;">
+                        Mỗi lô hàng rời kho đều được gắn mã QR truy xuất nguồn gốc đến từng khu vườn, nhật ký bón phân,
+                        ngày thu hoạch và phiếu kiểm nghiệm an toàn thực phẩm. Chúng tôi cam kết đổi trả 100% trong vòng
+                        4 giờ nếu bất kỳ thùng hàng nào không đạt độ tươi hoặc độ ngọt cam kết.
+                    </p>
+
+                    <div class="cert-row">
+                        <div class="cert-pill reveal-item" style="--delay: 340ms;">✓ Chứng nhận VietGAP & GlobalGAP
+                        </div>
+                        <div class="cert-pill reveal-item" style="--delay: 410ms;">✓ Hệ thống quản lý ATTP ISO
+                            22000:2018</div>
+                        <div class="cert-pill reveal-item" style="--delay: 480ms;">✓ Mã số vùng trồng & cơ sở đóng gói
+                            xuất khẩu</div>
+                    </div>
+                </div>
+
+                <div class="about-right">
+                    <div class="about-visual-card reveal-item" style="--delay: 160ms;">
+                        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=85"
+                            alt="Hệ thống phân loại và kho lạnh hoa quả Minh Khuê" />
+                        <div class="about-floating-stat">
+                            <strong>3.500 m²</strong>
+                            <span>Hệ thống kho lạnh đa nhiệt độ (0°C – 15°C) tại Hà Nội & Tiền Giang</span>
+                        </div>
+                    </div>
+
+                    <div class="pillars-grid">
+                        <div class="pillar-item reveal-item" style="--delay: 280ms;">
+                            <span class="pillar-num">01</span>
+                            <h4>Thu mua tận gốc</h4>
+                            <p>Ký hợp đồng bao tiêu trực tiếp với nhà vườn, loại bỏ 3–4 khâu trung gian, tối ưu 15–22%
+                                giá vốn cho đối tác.</p>
+                        </div>
+                        <div class="pillar-item reveal-item" style="--delay: 380ms;">
+                            <span class="pillar-num">02</span>
+                            <h4>Phân loại quang học</h4>
+                            <p>Phân tách đồng đều kích thước, trọng lượng và đo độ ngọt Brix không xâm lấn trước khi
+                                đóng thùng.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 4: PARTNERS (5 CARD / DÒNG, TỰ XUỐNG DÒNG & ĐÈ LÊN 2/3) ================= -->
+    <section class="partners-section" id="partners">
+        <div class="partners-sticky-stage">
+            <div class="partners-pinned-header" id="partnersHeader">
+                <h2 class="partners-title">
+                    <span class="title-dark">Tin chọn bởi</span>
+                    <span class="title-muted">+50 đối tác &amp; khách hàng</span>
+                </h2>
+            </div>
+
+            <!-- Lưới tự động chia 5 cột/dòng; thêm card sẽ tự xuống dòng & đè lên 2/3 dòng trên -->
+            <div class="partners-cards-stage" id="partnersCardsStage">
+
+                <!-- Card 1 -->
+                <article class="review-card card-light">
+                    <div class="review-card-top">
+                        <span class="review-stars">★★★★★</span>
+                        <span class="partner-badge">SIÊU THỊ BÁN LẺ</span>
+                    </div>
+                    <p class="review-quote">
+                        “Minh Khuê giúp chúng tôi chuẩn hóa hoàn toàn chất lượng trái cây nội địa tại 42 điểm bán miền
+                        Bắc. Tỷ lệ hao hụt giảm từ 9% xuống dưới 1.5%, hàng về kho lúc 5h sáng rất đúng giờ.”
+                    </p>
+                    <div class="review-author">
+                        <div class="author-avatar" style="background:#2619C8;">HM</div>
+                        <div>
+                            <strong>Ông Hoàng Minh Tuấn</strong>
+                            <span>GĐ Thu mua — GreenMart</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="review-card card-charcoal">
+                    <div class="review-card-top">
+                        <span class="review-stars">★★★★★</span>
+                        <span class="partner-badge">CHUỖI 85+ CỬA HÀNG F&amp;B</span>
+                    </div>
+                    <p class="review-quote">
+                        “Nguồn chanh dây, xoài Cát và dâu tây Đà Lạt của Minh Khuê giữ được độ ngọt và hương thơm cực kỳ
+                        ổn định quanh năm, giúp đồ uống toàn chuỗi không bị lệch vị theo mùa.”
+                    </p>
+                    <div class="review-author">
+                        <div class="author-avatar" style="background:#FF5500;">LT</div>
+                        <div>
+                            <strong>Bà Lê Thu Thảo</strong>
+                            <span>Trưởng phòng Chuỗi cung ứng — TeaLab</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 3 -->
+                <article class="review-card card-cream">
+                    <div class="review-card-top">
+                        <span class="review-stars">★★★★★</span>
+                        <span class="partner-badge">KHÁCH SẠN 5 SAO</span>
+                    </div>
+                    <p class="review-quote">
+                        “Bộ phận Bếp yêu cầu khắt khe về kích thước trái, độ chín phục vụ buffet sáng và hồ sơ kiểm
+                        dịch. Minh Khuê luôn đáp ứng trọn vẹn kể cả những đơn hàng gấp dịp lễ.”
+                    </p>
+                    <div class="review-author">
+                        <div class="author-avatar" style="background:#583F26;">ĐN</div>
+                        <div>
+                            <strong>Chef Đặng Ngọc Nam</strong>
+                            <span>Bếp trưởng Điều hành — The Pearl Resort</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 4 -->
+                <article class="review-card card-charcoal">
+                    <div class="review-card-top">
+                        <span class="review-stars">★★★★★</span>
+                        <span class="partner-badge">XUẤT KHẨU HÀN &amp; NHẬT</span>
+                    </div>
+                    <p class="review-quote">
+                        “Đội ngũ kỹ thuật tại Tiền Giang nắm vững quy trình xử lý hơi nước nóng và mã số vùng trồng,
+                        giúp 18 container xoài &amp; thanh long của chúng tôi thông quan suôn sẻ.”
+                    </p>
+                    <div class="review-author">
+                        <div class="author-avatar" style="background:#F32727;">PK</div>
+                        <div>
+                            <strong>Mr. Park Ji-hoon</strong>
+                            <span>Đại diện Thu mua — Seoul Fresh Import</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 5 -->
+                <article class="review-card card-light">
+                    <div class="review-card-top">
+                        <span class="review-stars">★★★★★</span>
+                        <span class="partner-badge">QUÀ TẶNG DOANH NGHIỆP</span>
+                    </div>
+                    <p class="review-quote">
+                        “Mỗi dịp Tết và Trung Thu, Minh Khuê đều thiết kế riêng hộp quà trái cây nhập khẩu in ép kim
+                        logo công ty rất sang trọng, giao tận tay từng đối tác VIP đúng hẹn.”
+                    </p>
+                    <div class="review-author">
+                        <div class="author-avatar" style="background:#16A34A;">NT</div>
+                        <div>
+                            <strong>Bà Nguyễn Thanh Hà</strong>
+                            <span>GĐ Hành chính Nhân sự — Tập đoàn VNP</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 6 (Tự động xuống dòng 2 & đè lên 2/3 Card 1) -->
+                <article class="review-card card-cream">
+                    <div class="review-card-top">
+                        <span class="review-stars">★★★★★</span>
+                        <span class="partner-badge">ĐẠI LÝ PHÂN PHỐI</span>
+                    </div>
+                    <p class="review-quote">
+                        “Chính sách giá ổn định theo tuần và hỗ trợ đổi trả trong 4 giờ giúp hệ thống 12 kho của
+                        chúng tôi yên tâm nhập sản lượng lớn mỗi ngày mà không lo rủi ro hàng dập.”
+                    </p>
+                    <div class="review-author">
+                        <div class="author-avatar" style="background:#0284C7;">VQ</div>
+                        <div>
+                            <strong>Ông Vũ Quốc Bảo</strong>
+                            <span>Giám đốc Điều hành — Nông Sản Việt Bắc</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 7 (Tự động xuống dòng 2 & đè lên 2/3 Card 2) -->
+                <article class="review-card card-charcoal">
+                    <div class="review-card-top">
+                        <span class="review-stars">★★★★★</span>
+                        <span class="partner-badge">BẾP ĂN &amp; HÀNG KHÔNG</span>
+                    </div>
+                    <p class="review-quote">
+                        “Hồ sơ truy xuất nguồn gốc QR và chứng nhận ISO 22000 của Minh Khuê đáp ứng đầy đủ tiêu chuẩn
+                        kiểm soát vệ sinh an toàn thực phẩm khắt khe cho suất ăn hàng không.”
+                    </p>
+                    <div class="review-author">
+                        <div class="author-avatar" style="background:#9333EA;">PL</div>
+                        <div>
+                            <strong>Bà Phạm Lan Anh</strong>
+                            <span>Trưởng bộ phận QA/QC — SkyCatering</span>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 5: SUPPLY PROCESS (CÓ SCROLL REVEAL) ================= -->
+    <section class="process-section" id="supply-flow">
+        <div class="container">
+            <div class="section-header-center">
+                <span class="section-kicker reveal-item" style="--delay: 0ms;">QUY TRÌNH HỢP TÁC B2B</span>
+                <h2 class="section-heading reveal-item" style="--delay: 100ms;">
+                    4 bước bắt đầu nguồn hàng.<br />
+                    <span>Minh bạch, nhanh chóng, cam kết chất lượng.</span>
+                </h2>
+            </div>
+
+            <div class="steps-grid">
+                <div class="step-card reveal-item" style="--delay: 140ms;">
+                    <div class="step-num">01</div>
+                    <h3>Tiếp nhận nhu cầu</h3>
+                    <p>Gửi danh mục mặt hàng, sản lượng dự kiến và tiêu chuẩn kích thước/độ ngọt mong muốn của doanh
+                        nghiệp bạn.</p>
+                </div>
+                <div class="step-card reveal-item" style="--delay: 230ms;">
+                    <div class="step-num">02</div>
+                    <h3>Gửi mẫu & Báo giá</h3>
+                    <p>Minh Khuê gửi bảng báo giá theo tuần/tháng kèm hộp mẫu thử trực tiếp tại văn phòng hoặc kho
+                        của đối tác.</p>
+                </div>
+                <div class="step-card reveal-item" style="--delay: 320ms;">
+                    <div class="step-num">03</div>
+                    <h3>Ký hợp đồng nguyên tắc</h3>
+                    <p>Chốt lịch giao hàng cố định, quy chuẩn đóng gói, điều khoản công nợ và cam kết đổi trả 1-1 khi có
+                        lỗi chất lượng.</p>
+                </div>
+                <div class="step-card reveal-item" style="--delay: 410ms;">
+                    <div class="step-num">04</div>
+                    <h3>Giao lạnh & Truy xuất</h3>
+                    <p>Xe tải lạnh giao hàng tận nơi đúng khung giờ, kèm đầy đủ phiếu kiểm dịch, hóa đơn VAT và mã QR
+                        từng lô hàng.</p>
+                </div>
+            </div>
+
+            <!-- Bottom Banner CTA -->
+            <div class="final-cta-box reveal-item" style="--delay: 200ms;">
+                <div>
+                    <span class="cta-tag">SẴN SÀNG CUNG ỨNG TOÀN QUỐC</span>
+                    <h3>Nhận bảng giá & chính sách chiết khấu đối tác ngay hôm nay.</h3>
+                    <p>Đội ngũ chuyên viên B2B sẽ phản hồi báo giá chi tiết theo sản lượng trong vòng 30 phút làm việc.
+                    </p>
+                </div>
+                <div class="final-cta-buttons">
+                    <button class="btn-primary-light" onclick="openQuoteModal('Đăng ký nhận báo giá')">
+                        Đăng ký nhận báo giá
+                    </button>
+                    <a href="tel:0936353137" class="btn-ghost-light">
+                        Gọi Hotline: 0936353137
+                    </a>
+                </div>
+            </div>
+
+            <footer class="site-footer">
+                <div class="footer-left">
+                    <strong>CÔNG TY TNHH THƯƠNG MẠI HOA QUẢ MINH KHUÊ</strong>
+                    <span>MST: 0110640531 • Trụ sở: Số 9, Ngách 35A/2, Đường Yên Thái, Xã Sơn Đồng, TP. Hà Nội</span>
+                </div>
+                <div class="footer-right">
+                    <span>© 2026 MINH KHUÊ. Copy right.</span>
+                </div>
+            </footer>
+        </div>
+    </section>
+
+    <!-- ================= MODAL: PRODUCT SPEC & QUOTE ================= -->
+    <div class="modal-backdrop" id="quoteModal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeQuoteModal()">✕</button>
+            <div id="modalDynamicContent"></div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+
+</html>
