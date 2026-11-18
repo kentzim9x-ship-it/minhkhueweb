@@ -352,34 +352,42 @@ function openProductDetail(index) {
     quoteModal.classList.add('active');
 }
 
+/* ================= KHỞI TẠO KẾT NỐI SUPABASE ================= */
+const SUPABASE_URL = 'https://gzmczqeczlrujhzleaoa.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_oBZ4Z1bekEMIjq_wmPFsyg_V68Y3dWE';
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+/* ================= CẬP NHẬT FORM & GỬI DỮ LIỆU LÊN SUPABASE ================= */
 function openQuoteModal(subject) {
     modalDynamicContent.innerHTML = `
     <h3 class="modal-title">Yêu cầu báo giá & Tư vấn nguồn hàng</h3>
     <p class="modal-sub">Chủ đề: <strong>${subject}</strong> — Chuyên viên B2B phản hồi trong 30 phút.</p>
-    <form onsubmit="submitQuoteForm(event)">
+    <form id="b2bQuoteForm" onsubmit="submitQuoteForm(event)">
       <div class="form-group">
-        <label>Tên doanh nghiệp / Cửa hàng *</label>
-        <input type="text" required placeholder="VD: Công ty TNHH Thực phẩm Xanh / Chuỗi F&B..." />
+        <label for="contactName">Họ và tên người liên hệ *</label>
+        <input type="text" id="contactName" name="contactName" required
+               style="text-transform: capitalize;"
+               oninput="handleAutoCapitalize(this, true)"
+               placeholder="VD: Anh Việt" />
       </div>
       <div class="form-group">
-        <label>Họ tên người liên hệ & Số điện thoại (Zalo) *</label>
-        <input type="text" required placeholder="VD: Anh Minh — 0912 345 678" />
+        <label for="contactPhone">Số điện thoại (Zalo) *</label>
+        <input type="tel" id="contactPhone" name="contactPhone" required inputmode="numeric"
+               pattern="^(0|\\+84)[0-9]{8,10}$"
+               title="Vui lòng nhập số điện thoại hợp lệ (VD: 0989643xxx)"
+               placeholder="VD: 0989643xxx" />
       </div>
       <div class="form-group">
-        <label>Mô hình kinh doanh</label>
-        <select>
-          <option>Hệ thống siêu thị / Cửa hàng trái cây sạch</option>
-          <option>Chuỗi Cà phê / Trà sữa / Nhà hàng / Khách sạn</option>
-          <option>Đại lý phân phối sỉ / Chợ đầu mối</option>
-          <option>Doanh nghiệp đặt quà tặng / Pantry văn phòng</option>
-          <option>Đối tác xuất khẩu</option>
-        </select>
+        <label for="businessModel">Mô hình kinh doanh</label>
+        <input type="text" id="businessModel" name="businessModel"
+               oninput="handleAutoCapitalize(this, false)"
+               placeholder="VD: Nhà hàng / Quán Coffe / Khách sạn..." />
       </div>
       <div class="form-group">
-        <label>Danh mục mặt hàng & Sản lượng dự kiến</label>
-        <textarea rows="3" placeholder="VD: Cần nhập Sầu riêng Ri6, Xoài Cát Hòa Lộc và Táo Envy khoảng 300kg/tuần tại Hà Nội..."></textarea>
+        <label for="quoteItems">Mặt hàng cần báo giá *</label>
+        <textarea id="quoteItems" name="quoteItems" rows="3" required placeholder="VD: Cam, Dưa hấu, Xoài, Bơ, Dâu tây, Dứa, Dừa Xiêm, Bưởi..."></textarea>
       </div>
-      <button type="submit" class="btn-primary-dark" style="width:100%; justify-content:center; margin-top:6px;">
+      <button type="submit" id="submitQuoteBtn" class="btn-primary-dark" style="width:100%; justify-content:center; margin-top:6px;">
         Gửi yêu cầu nhận bảng giá ngay
       </button>
     </form>
@@ -387,22 +395,100 @@ function openQuoteModal(subject) {
     quoteModal.classList.add('active');
 }
 
-function submitQuoteForm(e) {
+async function submitQuoteForm(e) {
     e.preventDefault();
-    modalDynamicContent.innerHTML = `
-    <div style="text-align:center; padding: 24px 10px;">
-      <div style="width:56px; height:56px; border-radius:50%; background:#DCFCE7; color:#16A34A; font-size:26px; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-weight:800;">✓</div>
-      <h3 class="modal-title">Đã tiếp nhận yêu cầu báo giá!</h3>
-      <p class="modal-sub" style="margin-bottom:22px;">
-        Bộ phận Kinh doanh B2B của <strong>MINH KHUE Co., Ltd.</strong> đã nhận được thông tin và sẽ gửi bảng giá kèm Catalogue qua Zalo/Email trong vòng 30 phút.
-      </p>
-      <button class="btn-primary-dark" onclick="closeQuoteModal()">Hoàn tất</button>
-    </div>
-  `;
+
+    const submitBtn = document.getElementById('submitQuoteBtn');
+    const contactName = capitalizeWords(document.getElementById('contactName').value.trim());
+    const contactPhone = document.getElementById('contactPhone').value.trim();
+    const businessModel = capitalizeFirstLetter(document.getElementById('businessModel').value.trim());
+    const quoteItems = document.getElementById('quoteItems').value.trim();
+
+    // Kiểm tra các trường bắt buộc
+    if (!contactName || !contactPhone || !quoteItems) {
+        alert('Vui lòng điền đầy đủ các trường bắt buộc (*).');
+        return;
+    }
+
+    // Khóa nút gửi để tránh bấm nhiều lần
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Đang gửi yêu cầu...';
+
+    // Chuẩn bị thời gian hiện tại theo múi giờ Việt Nam
+    const now = new Date();
+    const pad = (n) => String(n).padStart(2, '0');
+
+    const timeStr = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+    const dateStr = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+    const createdAtStr = now.toISOString();
+
+    // Tạo ID tự động theo định dạng hệ thống: NOTIF-<timestamp>-<4 ký tự ngẫu nhiên>
+    const randomSuffix = Math.random().toString(36).substring(2, 6);
+    const notifId = `NOTIF-${Date.now()}-${randomSuffix}`;
+
+    // Ghép mô hình kinh doanh vào phần note nếu người dùng có nhập
+    const fullNote = businessModel
+        ? `Họ và tên người liên hệ: ${contactName} | Số điện thoại(Zalo): ${contactPhone} | Mô hình: ${businessModel} | Mặt hàng: ${quoteItems}`
+        : quoteItems;
+
+    const payload = {
+        id: notifId,
+        type: 'quotations_web_require',
+        title: 'Yêu cầu nhận bảng giá ngay',
+        detail: `${contactName} - ${contactPhone} đã gửi yêu cầu báo giá từ hệ thống web Minh Khuê`,
+        time: timeStr,
+        date: dateStr,
+        created_at: createdAtStr,
+        actor: 'Hệ Thống',
+        note: fullNote
+    };
+
+    try {
+        const { error } = await supabaseClient
+            .from('notifications')
+            .insert([payload]);
+
+        if (error) throw error;
+
+        modalDynamicContent.innerHTML = `
+        <div style="text-align:center; padding: 24px 10px;">
+          <div style="width:56px; height:56px; border-radius:50%; background:#DCFCE7; color:#16A34A; font-size:26px; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-weight:800;">✓</div>
+          <h3 class="modal-title">Đã tiếp nhận yêu cầu báo giá!</h3>
+          <p class="modal-sub" style="margin-bottom:22px;">
+            Cảm ơn <strong>${contactName}</strong>. Bộ phận Kinh doanh B2B của <strong>MINH KHUE Co., Ltd.</strong> đã nhận được thông tin và sẽ gửi bảng giá qua Zalo <strong>${contactPhone}</strong> trong vòng 30 phút.
+          </p>
+          <button class="btn-primary-dark" onclick="closeQuoteModal()">Hoàn tất</button>
+        </div>
+      `;
+    } catch (err) {
+        console.error('Lỗi khi gửi dữ liệu lên Supabase:', err);
+        alert('Có lỗi xảy ra khi gửi yêu cầu. Vui lòng thử lại hoặc liên hệ Hotline: 0936353137.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Gửi yêu cầu nhận bảng giá ngay';
+    }
 }
 
 function closeQuoteModal() {
     quoteModal.classList.remove('active');
+}
+
+// Xử lý tự động viết hoa ngay khi gõ mà không làm nhảy con trỏ chuột
+function handleAutoCapitalize(input, everyWord = true) {
+    const start = input.selectionStart;
+    const end = input.selectionEnd;
+    input.value = everyWord ? capitalizeWords(input.value) : capitalizeFirstLetter(input.value);
+    input.setSelectionRange(start, end);
+}
+
+// Hàm tự động viết hoa chữ cái đầu mỗi từ (Title Case) - hỗ trợ tiếng Việt có dấu
+function capitalizeWords(str) {
+    return str.replace(/(^|\s)\S/g, (char) => char.toLocaleUpperCase('vi-VN'));
+}
+
+// Hàm chỉ viết hoa chữ cái đầu tiên của cả câu (Sentence Case)
+function capitalizeFirstLetter(str) {
+    if (!str) return '';
+    return str.charAt(0).toLocaleUpperCase('vi-VN') + str.slice(1);
 }
 
 quoteModal.addEventListener('click', (e) => {
